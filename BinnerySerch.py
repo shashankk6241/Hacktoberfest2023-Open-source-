@@ -1,48 +1,32 @@
-#include<stdio.h>    
-#include<stdlib.h>  
-int main(){  
-int a[10][10],b[10][10],mul[10][10],r,c,i,j,k;    
-system("cls");  
-printf("enter the number of row=");    
-scanf("%d",&r);    
-printf("enter the number of column=");    
-scanf("%d",&c);    
-printf("enter the first matrix element=\n");    
-for(i=0;i<r;i++)    
-{    
-for(j=0;j<c;j++)    
-{    
-scanf("%d",&a[i][j]);    
-}    
-}    
-printf("enter the second matrix element=\n");    
-for(i=0;i<r;i++)    
-{    
-for(j=0;j<c;j++)    
-{    
-scanf("%d",&b[i][j]);    
-}    
-}    
+# Binary search function to find the target element in a sorted array
+def binary_search(arr, start, end, target):
+    # Calculate the middle index of the current subarray
+    mid = (start + end) // 2
     
-printf("multiply of the matrix=\n");    
-for(i=0;i<r;i++)    
-{    
-for(j=0;j<c;j++)    
-{    
-mul[i][j]=0;    
-for(k=0;k<c;k++)    
-{    
-mul[i][j]+=a[i][k]*b[k][j];    
-}    
-}    
-}       
-for(i=0;i<r;i++)    
-{    
-for(j=0;j<c;j++)    
-{    
-printf("%d\t",mul[i][j]);    
-}    
-printf("\n");    
-}    
-return 0;  
-}
+    # If the start index is greater than the end index, the target is not in the array
+    if start > end:
+        return -1
+    
+    # If the middle element is less than the target, search the right half of the subarray
+    if arr[mid] < target:
+        return binary_search(arr, mid + 1, end, target)
+    
+    # If the middle element is greater than the target, search the left half of the subarray
+    elif arr[mid] > target:
+        return binary_search(arr, start, mid - 1, target)
+    
+    # If the middle element is equal to the target, return the index of the target
+    elif arr[mid] == target:
+        return mid
+
+# Example array
+arr = [20, 30, 40, 60, 80, 90]
+
+# Call the binary_search function to find the target (in this case, target is 20)
+ans = binary_search(arr, 0, len(arr) - 1, 20)
+
+# Check the result of the binary search
+if ans == -1:
+    print("Target Not Found")
+else:
+    print("Target found at index", ans)
